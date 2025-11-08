@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('nombres');
             $table->string('apellidos');
-            $table->string('telefono');
-            $table->string('fecha_nacimiento');
+            $table->string('telefono')->unique();
+            $table->date('fecha_nacimiento');
             $table->string('email')->unique();
             $table->string('password');
             $table->timestamps();

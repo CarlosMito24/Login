@@ -6,37 +6,34 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Cookie; 
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
-    // 🔹 Registro
+    // Registro
     public function register(Request $request)
     {
         $request->validate([
             'nombres' => 'required|string|max:255',
             'apellidos' => 'required|string|max:255',
-            'telefono' => 'required|string|max:15',
+            'telefono' => 'required|string|max:9',
             'fecha_nacimiento' => 'required|date',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:8',
         ]);
 
-        $user = User::create([
-            'nombres' => $request->nombres,
-            'apellidos' => $request->apellidos,
-            'telefono' => $request->telefono,
-            'fecha_nacimiento' => $request->fecha_nacimiento,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+         $user = new User;
+        $user->nombres = $request->nombres;
+        $user->apellidos = $request->apellidos;
+        $user->telefono = $request->telefono;
+        $user->fecha_nacimiento = $request->fecha_nacimiento;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->save();
 
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'message' => 'Usuario registrado correctamente',
-            'user' => $user,
-            'token' => $token
-        ], 201);
+        return response($user, Response::HTTP_CREATED);
     }
 
     // 🔹 Inicio de sesión
