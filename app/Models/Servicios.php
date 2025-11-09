@@ -12,7 +12,8 @@ class Servicios extends Model
     protected $fillable = [
         'nombre',
         'descripcion',
-        'precio'
+        'precio',
+        'imagen',
     ];
 
     public function citas()
