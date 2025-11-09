@@ -18,21 +18,30 @@ class UsuariosSeeder extends Seeder
     public function run()
     {
         User::create([
-            'nombres' => 'Carlos',
-            'apellidos' => 'Mito',
-            'telefono' => '6190-6881',
-            'fecha_nacimiento' => '2005-03-24',
-            'email' => 'carlosalfonsomito@gmail.com',
-            'password' => bcrypt('CarlosMito'),
+            'nombres' => 'Melissa',
+            'apellidos' => 'Fuentes',
+            'telefono' => '6025-4852',
+            'fecha_nacimiento' => '2004-08-28',
+            'email' => 'melissa.elena24@itca.edu.sv',
+            'password' => bcrypt('12345678'),
         ]);
 
         User::create([
-            'nombres' => 'Sofy',
-            'apellidos' => 'Ventura',
-            'telefono' => '7250-30544',
-            'fecha_nacimiento' => '2005-03-24',
-            'email' => 'sofyventura@gmail.com',
-            'password' => bcrypt('CarlosMito'),
+            'nombres' => 'David',
+            'apellidos' => 'Abarca',
+            'telefono' => '7375-2000',
+            'fecha_nacimiento' => '2005-01-01',
+            'email' => 'josue.abarca24@itca.edu.sv',
+            'password' => bcrypt('12345678'),
+        ]);
+
+        User::create([
+            'nombres' => 'Edgardo',
+            'apellidos' => 'Tobar',
+            'telefono' => '7307-1626',
+            'fecha_nacimiento' => '2005-01-01',
+            'email' => 'edgardo.tobar24@itca.edu.sv',
+            'password' => bcrypt('12345678'),
         ]);
     }
 }

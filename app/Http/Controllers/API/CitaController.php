@@ -36,6 +36,22 @@ class CitaController extends Controller
         return response()->json(['message' => 'Cita creada correctamente', 'data' => $cita], 201);
     }
 
+    public function getPendingAppointments()
+    {
+        return Cita::with(['mascota', 'servicio', 'estado'])
+                    ->where('user_id', Auth::id())
+                    ->where('estado_id', 1) 
+                    ->get();
+    }
+
+    public function getHistorialCitas()
+    {
+        return Cita::with(['mascota', 'servicio', 'estado'])
+                    ->where('user_id', Auth::id())
+                    ->where('estado_id', 2) 
+                    ->get();
+    }
+
     public function destroy($id)
     {
         $cita = Cita::where('id', $id)->where('user_id', Auth::id())->firstOrFail();

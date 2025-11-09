@@ -23,10 +23,6 @@ class EstadoCitaSeeder extends Seeder
         ]);
 
         EstadoCita::create([
-            'nombre' => 'Cancelado',
-        ]);
-
-        EstadoCita::create([
             'nombre' => 'Completado',
         ]);
     }

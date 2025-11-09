@@ -18,6 +18,8 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/citas', [CitaController::class, 'index']);
+    Route::get('citas/pendientes', [CitaController::class, 'getPendingAppointments']);
+    Route::get('citas/historial', [CitaController::class, 'getHistorialCitas']);
     Route::post('/citas', [CitaController::class, 'store']);
     Route::delete('/citas/{id}', [CitaController::class, 'destroy']);
 });
