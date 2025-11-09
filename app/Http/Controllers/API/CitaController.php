@@ -11,7 +11,7 @@ class CitaController extends Controller
 {
     public function index()
     {
-        return Cita::where('user_id', Auth::id())->get();
+        return Cita::with(['mascota_id', 'servicios_id', 'estado_id'])->where('user_id', Auth::id())->get();
     }
 
     public function store(Request $request)
@@ -19,17 +19,21 @@ class CitaController extends Controller
         $request->validate([
             'fecha' => 'required|date',
             'hora' => 'required',
-            'descripcion' => 'nullable|string',
+            'mascota_id' => 'required|exists:mascotas,id',
+            'servicios_id' => 'required|exists:servicios,id',
+            'estado_id' => 'required|exists:estado_citas,id'
         ]);
 
         $cita = Cita::create([
             'user_id' => Auth::id(),
             'fecha' => $request->fecha,
             'hora' => $request->hora,
-            'descripcion' => $request->descripcion,
+            'mascota_id' => $request->mascota_id,
+            'servicios_id' => $request->servicios_id,
+            'estado_id' => $request->estado_id
         ]);
 
-        return response()->json($cita, 201);
+        return response()->json(['message' => 'Cita creada correctamente', 'data' => $cita], 201);
     }
 
     public function destroy($id)
