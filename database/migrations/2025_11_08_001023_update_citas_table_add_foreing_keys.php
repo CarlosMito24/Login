@@ -17,10 +17,10 @@ return new class extends Migration
             if (Schema::hasColumn('citas', 'descripcion')) {
                 $table->dropColumn('descripcion');
             }
-
             $table->foreignId('mascota_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('servicios_id')->nullable()->constrained('servicios')->onDelete('cascade');
-            $table->foreignId('estado_id')->nullable()->constrained('estado_citas')->onDelete('cascade');
+            $table->foreignId('estado_id')->nullable()->default(1);
+            $table->foreign('estado_id')->references('id')->on('estado_citas')->onDelete('cascade');
         });
     }
 
