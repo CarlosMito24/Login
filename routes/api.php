@@ -21,6 +21,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('citas/pendientes', [CitaController::class, 'getPendingAppointments']);
     Route::get('citas/historial', [CitaController::class, 'getHistorialCitas']);
     Route::post('/citas', [CitaController::class, 'store']);
+    Route::put('/citas/{id}', [CitaController::class, 'update']);
+    Route::patch('/citas/{id}/cancelar', [CitaController::class, 'cancel']);
     Route::delete('/citas/{id}', [CitaController::class, 'destroy']);
 });
 

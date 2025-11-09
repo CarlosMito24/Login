@@ -11,7 +11,7 @@ class CitaController extends Controller
 {
     public function index()
     {
-        return Cita::with(['mascota_id', 'servicios_id', 'estado_id'])->where('user_id', Auth::id())->get();
+        return Cita::with(['mascota', 'servicios', 'estado'])->where('user_id', Auth::id())->get();
     }
 
     public function store(Request $request)
@@ -50,6 +50,38 @@ class CitaController extends Controller
                     ->where('user_id', Auth::id())
                     ->where('estado_id', 2) 
                     ->get();
+    }
+
+    public function update(Request $request, $id)
+    {
+        $cita = Cita::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
+
+        $request->validate([
+            'fecha' => 'sometimes|date',
+            'hora' => 'sometimes',
+            'mascota_id' => 'sometimes|exists:mascotas,id',
+            'servicios_id' => 'sometimes|exists:servicios,id',
+            'estado_id' => 'sometimes|exists:estado_citas,id'
+        ]);
+
+        $cita->update($request->only(['fecha', 'hora', 'mascota_id', 'servicios_id', 'estado_id']));
+
+        return response()->json(['message' => 'Cita actualizada correctamente', 'data' => $cita]);
+    }
+
+    public function cancel(Request $request, $id)
+    {
+        $cita = Cita::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
+        
+        $request->validate([
+            'estado_id' => 'required|exists:estado_citas,id'
+        ]);
+    
+        $cita->estado_id = $request->estado_id;
+        $cita->save();
+    
+        return response()->json(['message' => 'Cita cancelada correctamente', 'data' => $cita]);
+    
     }
 
     public function destroy($id)
