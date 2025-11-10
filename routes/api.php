@@ -7,6 +7,7 @@ use App\Http\Controllers\API\CitaController;
 use App\Http\Controllers\API\EstadoCitaController;
 use App\Http\Controllers\API\MascotaController;
 use App\Http\Controllers\API\ServiceController;
+use App\Http\Controllers\API\UserController;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
@@ -42,4 +43,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/estados', [EstadoCitaController::class, 'index']);
     Route::post('/estados', [EstadoCitaController::class, 'store']);
     Route::delete('/estados/{id}', [EstadoCitaController::class, 'destroy']);
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+    // 1. RUTA para OBTENER los datos (GET)
+    Route::get('/user/profile', [UserController::class, 'show']);
+
+    // 2. RUTA para ACTUALIZAR los datos (PUT/POST) - Es la que corregimos antes
+    Route::put('/user/profile', [UserController::class, 'update']);
 });

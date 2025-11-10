@@ -14,7 +14,8 @@ class Mascota extends Model
         'nombre',
         'especie',
         'raza',
-        'edad'
+        'edad',
+        'imagen',
     ];
 
     public function user()

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('especie')->nullable();
             $table->string('raza')->nullable();
             $table->integer('edad')->nullable();
+            $table->string('imagen')->nullable();
             $table->timestamps();
         });
     }

@@ -21,27 +21,27 @@ class ServiciosSeeder extends Seeder
             'nombre' => 'Consulta General',
             'descripcion' => 'Consulta general para atender enfermedades de tus mascotas',
             'precio' => 10.0,
-            'imagen' => '../images/imagen_1.png'
+            'imagen' => '../images/servicios/imagen_1.png'
         ]);
 
         Servicios::create([
             'nombre' => 'Chequeo General',
             'descripcion' => 'Chequeo de rutina para atender a tus mascotas',
             'precio' => 10.0,
-            'imagen' => '../images/imagen_2.png'
+            'imagen' => '../images/servicios/imagen_2.png'
         ]);
 
         Servicios::create([
             'nombre' => 'Vacunación',
             'descripcion' => 'Vacunación preventiva para tus mascotass',
-            'imagen' => '../images/imagen_3.png'
+            'imagen' => '../images/servicios/imagen_3.png'
         ]);
 
         Servicios::create([
             'nombre' => 'Baño y Corte',
             'descripcion' => 'Sesión de baño y corte de pelaje para tu mascota',
             'precio' => 15.0,
-            'imagen' => '../images/imagen_4.png'
+            'imagen' => '../images/servicios/imagen_4.png'
         ]);
     }
 }

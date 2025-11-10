@@ -23,6 +23,7 @@ class MascotasSeeder extends Seeder
             'especie' => 'Perro',
             'raza' => 'Chihuahua',
             'edad' => 1,
+            'imagen' => '../images/mascotas/luna.jpg'
         ]);
 
         Mascota::create([
@@ -31,6 +32,7 @@ class MascotasSeeder extends Seeder
             'especie' => 'Perro',
             'raza' => '',
             'edad' => 3,
+            'imagen' => null,
         ]);
     }
 }
