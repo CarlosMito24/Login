@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('citas/historial', [CitaController::class, 'getHistorialCitas']);
     Route::post('/citas', [CitaController::class, 'store']);
     Route::put('/citas/{id}', [CitaController::class, 'update']);
+    Route::post('/mascotas/{id}', [MascotaController::class, 'update']);
     Route::patch('/citas/{id}/cancelar', [CitaController::class, 'cancel']);
     Route::delete('/citas/{id}', [CitaController::class, 'destroy']);
 });
@@ -30,6 +31,8 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/mascotas', [MascotaController::class, 'index']);
     Route::post('/mascotas', [MascotaController::class, 'store']);
+    Route::get('/mascotas/{id}', [MascotaController::class, 'show']);
+    Route::put('/mascotas/{id}', [MascotaController::class, 'update']);
     Route::delete('/mascotas/{id}', [MascotaController::class, 'destroy']);
 });
 
