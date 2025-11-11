@@ -6,12 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Cita;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class CitaController extends Controller
 {
     public function index()
     {
-        return Cita::with(['mascota', 'servicios', 'estado'])->where('user_id', Auth::id())->get();
+        return Cita::with(['mascota', 'servicio', 'estado'])->where('user_id', Auth::id())->get();
     }
 
     public function store(Request $request)
@@ -91,4 +92,12 @@ class CitaController extends Controller
 
         return response()->json(['message' => 'Cita eliminada correctamente']);
     }
+
+    public function show($id)
+{
+    return Cita::with(['mascota', 'servicio', 'estado'])
+                ->where('id', $id)
+                ->where('user_id', Auth::id())
+                ->firstOrFail(); 
+}
 }
