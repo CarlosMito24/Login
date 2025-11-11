@@ -18,13 +18,18 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
 });
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/citas', [CitaController::class, 'index']);
+   // 1. Rutas FIJAS (Sin {id} variable) - ¡Deben ir primero!
     Route::get('citas/pendientes', [CitaController::class, 'getPendingAppointments']);
     Route::get('citas/historial', [CitaController::class, 'getHistorialCitas']);
-    Route::post('/citas', [CitaController::class, 'store']);
-    Route::put('/citas/{id}', [CitaController::class, 'update']);
-    Route::patch('/citas/{id}/cancelar', [CitaController::class, 'cancel']);
-    Route::delete('/citas/{id}', [CitaController::class, 'destroy']);
+    
+    // 2. Ruta PATCH personalizada (Cancelación) - Debe ir antes del resource si usa el mismo prefijo
+    Route::patch('/citas/{id}/cancelar', [CitaController::class, 'cancel']); 
+
+    // 3. RUTAS DE RECURSO - Define index, show, store, update, destroy automáticamente
+    // Laravel ordena las rutas dentro del recurso correctamente.
+    Route::resource('citas', CitaController::class)->only([
+        'index', 'show', 'store', 'update', 'destroy'
+    ]);
 });
 
 Route::middleware('auth:sanctum')->group(function () {
