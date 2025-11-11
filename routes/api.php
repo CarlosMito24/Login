@@ -21,13 +21,11 @@ Route::middleware('auth:sanctum')->group(function () {
    // 1. Rutas FIJAS (Sin {id} variable) - ¡Deben ir primero!
     Route::get('citas/pendientes', [CitaController::class, 'getPendingAppointments']);
     Route::get('citas/historial', [CitaController::class, 'getHistorialCitas']);
-<<<<<<< HEAD
+
     Route::post('/citas', [CitaController::class, 'store']);
     Route::put('/citas/{id}', [CitaController::class, 'update']);
-    Route::post('/mascotas/{id}', [MascotaController::class, 'update']);
     Route::patch('/citas/{id}/cancelar', [CitaController::class, 'cancel']);
     Route::delete('/citas/{id}', [CitaController::class, 'destroy']);
-=======
     
     // 2. Ruta PATCH personalizada (Cancelación) - Debe ir antes del resource si usa el mismo prefijo
     Route::patch('/citas/{id}/cancelar', [CitaController::class, 'cancel']); 
@@ -37,7 +35,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('citas', CitaController::class)->only([
         'index', 'show', 'store', 'update', 'destroy'
     ]);
->>>>>>> 2f6511a5ad291e9273ac4a1598ef71191a22f38a
 });
 
 Route::middleware('auth:sanctum')->group(function () {
