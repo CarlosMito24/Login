@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cita;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class CitaController extends Controller
 {
@@ -94,11 +95,9 @@ class CitaController extends Controller
 
     public function show($id)
 {
-    // Busca la cita por ID y verifica que pertenezca al usuario autenticado.
-    // Carga las mismas relaciones que usas en index()
     return Cita::with(['mascota', 'servicio', 'estado'])
                 ->where('id', $id)
                 ->where('user_id', Auth::id())
-                ->firstOrFail(); // firstOrFail() lanza un 404 si no existe o no es del usuario
+                ->firstOrFail(); 
 }
 }
