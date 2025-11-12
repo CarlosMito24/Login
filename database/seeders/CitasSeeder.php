@@ -32,7 +32,7 @@ class CitasSeeder extends Seeder
             'hora' => '09:00',
             'mascota_id' => 2,
             'servicios_id' => 3,
-            'estado_id' => 2
+            'estado_id' => 2,
         ]);
     }
 }
