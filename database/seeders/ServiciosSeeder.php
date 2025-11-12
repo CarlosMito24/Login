@@ -18,29 +18,30 @@ class ServiciosSeeder extends Seeder
     public function run()
     {
         Servicios::create([
-            'nombre' => 'Consulta General',
-            'descripcion' => 'Consulta general para atender enfermedades de tus mascotas',
-            'precio' => 10.0,
+            'nombre' => 'Consulta Veterinaria General',
+            'descripcion' => 'Evaluación integral de la salud de tu mascota, diagnóstico y plan de tratamiento para enfermedades comunes.',
+            'precio' => 20.0,
             'imagen' => '../images/servicios/imagen_1.png'
         ]);
 
         Servicios::create([
-            'nombre' => 'Chequeo General',
-            'descripcion' => 'Chequeo de rutina para atender a tus mascotas',
-            'precio' => 10.0,
+            'nombre' => 'Chequeo General de Rutina',
+            'descripcion' => 'Examen físico completo y revisión preventiva. Ideal para asegurar el bienestar y detectar problemas tempranamente.',
+            'precio' => 15.0,
             'imagen' => '../images/servicios/imagen_2.png'
         ]);
 
         Servicios::create([
-            'nombre' => 'Vacunación',
-            'descripcion' => 'Vacunación preventiva para tus mascotass',
+            'nombre' => 'Programa de Vacunación Esencial',
+            'descripcion' => 'Aplicación de vacunas necesarias según la edad y especie. ¡Protégete contra enfermedades infecciosas!',
+            'precio' => null, 
             'imagen' => '../images/servicios/imagen_3.png'
         ]);
 
         Servicios::create([
-            'nombre' => 'Baño y Corte',
-            'descripcion' => 'Sesión de baño y corte de pelaje para tu mascota',
-            'precio' => 15.0,
+             'nombre' => 'Spa Canino: Baño y Corte Premium',
+            'descripcion' => 'Sesión completa de baño, secado, corte de pelaje, limpieza de oídos y corte de uñas.',
+            'precio' => 25.0,
             'imagen' => '../images/servicios/imagen_4.png'
         ]);
     }
