@@ -8,30 +8,22 @@ use App\Http\Controllers\API\EstadoCitaController;
 use App\Http\Controllers\API\MascotaController;
 use App\Http\Controllers\API\ServiceController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\AdminController;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
 Route::group(['middleware' => ['auth:sanctum']], function(){
-    Route::get('user-profile', [AuthController::class, 'userProfile']);
     Route::post('logout', [AuthController::class, 'logout']);
 });
 
 Route::middleware('auth:sanctum')->group(function () {
-   // 1. Rutas FIJAS (Sin {id} variable) - ¡Deben ir primero!
     Route::get('citas/pendientes', [CitaController::class, 'getPendingAppointments']);
     Route::get('citas/historial', [CitaController::class, 'getHistorialCitas']);
-
     Route::post('/citas', [CitaController::class, 'store']);
     Route::put('/citas/{id}', [CitaController::class, 'update']);
     Route::patch('/citas/{id}/cancelar', [CitaController::class, 'cancel']);
     Route::delete('/citas/{id}', [CitaController::class, 'destroy']);
-    
-    // 2. Ruta PATCH personalizada (Cancelación) - Debe ir antes del resource si usa el mismo prefijo
-    Route::patch('/citas/{id}/cancelar', [CitaController::class, 'cancel']); 
-
-    // 3. RUTAS DE RECURSO - Define index, show, store, update, destroy automáticamente
-    // Laravel ordena las rutas dentro del recurso correctamente.
     Route::resource('citas', CitaController::class)->only([
         'index', 'show', 'store', 'update', 'destroy'
     ]);
@@ -58,9 +50,12 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
-    // 1. RUTA para OBTENER los datos (GET)
     Route::get('/user/profile', [UserController::class, 'show']);
-
-    // 2. RUTA para ACTUALIZAR los datos (PUT/POST) - Es la que corregimos antes
     Route::put('/user/profile', [UserController::class, 'update']);
+});
+
+Route::post('loginadmin', [AdminController::class, 'login']);
+
+Route::group(['middleware' => ['auth:sanctum']], function(){
+    Route::post('logoutadmin', [AdminController::class, 'logout']);
 });

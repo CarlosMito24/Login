@@ -32,7 +32,7 @@ class MascotasSeeder extends Seeder
             'especie' => 'Perro',
             'raza' => '',
             'edad' => 3,
-            'imagen' => null,
+            'imagen' => '../images/mascotas/default.png',
         ]);
     }
 }
