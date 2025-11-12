@@ -72,26 +72,20 @@ class UserController extends Controller
         'telefono' => 'required|string|max:9',
         'fecha_nacimiento' => 'required|date',
         'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-        // La contraseña debe ser opcional si no se desea cambiar
-        'password' => 'nullable|string|min:8', // 'nullable' y 'confirmed' para verificar 
-                                                          // que coincida si se proporciona
+        'password' => 'nullable|string|min:8', 
     ]);
 
-    // 3. Preparar los datos para la actualización
     $data = $request->only(['nombres', 'apellidos', 'telefono', 'fecha_nacimiento', 'email']);
 
-    // El password debe manejarse por separado y hashearse
     if ($request->filled('password')) {
-        $data['password'] = bcrypt($request->input('password')); // O Hash::make()
+        $data['password'] = bcrypt($request->input('password'));
     }
 
-    // 4. Realizar la actualización
     $user->update($data);
 
-    // 5. Devolver la respuesta
     return response()->json([
         'message' => 'Usuario actualizado correctamente', 
-        'data' => $user // Devuelve los datos actualizados del usuario
+        'data' => $user
     ]);
 }
 

@@ -54,6 +54,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/user/profile', [UserController::class, 'update']);
 });
 
+
+//Rutas Administrador
 Route::post('loginadmin', [AdminController::class, 'login']);
 
 Route::group(['middleware' => ['auth:sanctum']], function(){
