@@ -62,11 +62,13 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::post('registraradmin', [AdminController::class, 'register']);
     Route::post('logoutadmin', [AdminController::class, 'logout']);
     Route::get('admin/mascotas', [MascotaController::class, 'indexAdmin']);
+        Route::get('admin/mascotas/por-usuario/{userId}', [CitaController::class, 'getMascotasByUser']); 
     Route::get('admin/servicios', [ServiceController::class, 'index']);
     Route::get('admin/citas/pendientes', [CitaController::class, 'getCitasPendientesAdmin']);
     Route::patch('admin/citas/{id}/cancelar', [CitaController::class, 'cancelAdmin']);
     Route::patch('admin/citas/{id}/completar', [CitaController::class, 'completarAdmin']);
     Route::get('admin/citascompletadas', [CitaController::class, 'getCitasCompletadasAdmin']);
+    Route::put('admin/citas/{id}', [CitaController::class, 'updateAdmin']);
     Route::get('admin/user/profile', [AdminController::class, 'show']);
     Route::put('admin/user/profile', [AdminController::class, 'update']);
     //Servicios
@@ -74,4 +76,5 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::get('admin/servicios/{id}', [ServiceController::class, 'show']);
     Route::put('admin/servicios/{id}', [ServiceController::class, 'update']);
     Route::delete('admin/servicios/{id}', [ServiceController::class, 'destroy']);
+    Route::get('/admin/citas/{id}', [CitaController::class, 'showAdmin']); 
 });
