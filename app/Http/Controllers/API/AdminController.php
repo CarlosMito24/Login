@@ -19,7 +19,7 @@ class AdminController extends Controller
             'apellidos' => 'required|string|max:255',
             'telefono' => 'required|string|max:9',
             'fecha_nacimiento' => 'required|date',
-            'email' => 'required|string|email|max:255|unique:admin',
+            'email' => 'required|string|email|max:255|unique:admins',
             'password' => 'required|string|min:8',
         ];
 
@@ -110,9 +110,19 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $admin = Auth::user();
+        
+        if (!$admin) {
+            // Esto es una capa de seguridad, aunque el middleware ya lo debería manejar
+            return response()->json(['message' => 'No autenticado'], 401);
+        }
+
+        // Devolvemos el usuario
+        return response()->json([
+            'data' => $admin
+        ]);
     }
 
     /**
@@ -122,9 +132,35 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $user = Auth::user();
+
+        if (!$user) {
+            return response()->json(['message' => 'No autenticado'], 401);
+        }
+        
+        $request->validate([
+            'nombres' => 'required|string|max:255',
+            'apellidos' => 'required|string|max:255',
+            'telefono' => 'required|string|max:9',
+            'fecha_nacimiento' => 'required|date',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:8', 
+        ]);
+
+        $data = $request->only(['nombres', 'apellidos', 'telefono', 'fecha_nacimiento', 'email']);
+
+        if ($request->filled('password')) {
+            $data['password'] = bcrypt($request->input('password'));
+        }
+
+        $user->update($data);
+
+        return response()->json([
+            'message' => 'Usuario actualizado correctamente', 
+            'data' => $user
+        ]);
     }
 
     /**

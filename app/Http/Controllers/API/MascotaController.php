@@ -13,10 +13,14 @@ class MascotaController extends Controller
     private const DEFAULT_IMAGE_PATH = 'default/default.png';
     private const CUSTOM_IMAGES_DIR = 'mascotas/';
 
-
     public function index()
     {
         return Mascota::where('user_id', Auth::id())->get();
+    }
+
+    public function indexAdmin()
+    {
+        return Mascota::with('user')->get(); 
     }
 
     public function store(Request $request)
@@ -75,7 +79,7 @@ class MascotaController extends Controller
             $file = $request->file('imagen');
             $filename = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('images/' . self::CUSTOM_IMAGES_DIR), $filename);
-            $data['imagen'] = self::CUSTOM_IMAGES_DIR . $filename; // Nueva ruta
+            $data['imagen'] = self::CUSTOM_IMAGES_DIR . $filename;
         } 
         
         $mascota->update($data);

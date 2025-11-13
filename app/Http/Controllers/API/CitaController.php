@@ -45,10 +45,26 @@ class CitaController extends Controller
                     ->get();
     }
 
+    public function getCitasPendientesAdmin()
+    {
+        $citas = Cita::with(['mascota.user', 'servicio', 'estado']) 
+                     ->where('estado_id', 1  ) 
+                     ->get();
+
+        return response()->json($citas);
+    }
+
     public function getHistorialCitas()
     {
         return Cita::with(['mascota', 'servicio', 'estado'])
                     ->where('user_id', Auth::id())
+                    ->where('estado_id', 2) 
+                    ->get();
+    }
+
+    public function getCitasCompletadasAdmin()
+    {
+        return Cita::with(['mascota.user', 'servicio', 'estado'])
                     ->where('estado_id', 2) 
                     ->get();
     }
@@ -83,6 +99,38 @@ class CitaController extends Controller
     
         return response()->json(['message' => 'Cita cancelada correctamente', 'data' => $cita]);
     
+    }
+
+    public function cancelAdmin(Request $request, $id)
+    {
+        $request->validate([
+            'estado_id' => 'required|exists:estado_citas,id'
+        ]);
+        $cita = Cita::findOrFail($id);
+
+        $cita->estado_id = $request->estado_id;
+        $cita->save();
+
+        return response()->json([
+            'message' => 'Cita cancelada correctamente por el administrador', 
+            'data' => $cita
+        ]);
+    }
+
+    public function completarAdmin(Request $request, $id)
+    {
+        $request->validate([
+            'estado_id' => 'required|exists:estado_citas,id'
+        ]);
+        $cita = Cita::findOrFail($id);
+
+        $cita->estado_id = $request->estado_id;
+        $cita->save();
+
+        return response()->json([
+            'message' => 'Cita completada correctamente por el administrador', 
+            'data' => $cita
+        ]);
     }
 
     public function destroy($id)

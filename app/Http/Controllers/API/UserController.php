@@ -41,7 +41,6 @@ class UserController extends Controller
         $user = Auth::user();
         
         if (!$user) {
-            // Esto es una capa de seguridad, aunque el middleware ya lo debería manejar
             return response()->json(['message' => 'No autenticado'], 401);
         }
 
